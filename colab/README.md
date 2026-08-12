@@ -12,7 +12,11 @@ reachable from the internet at all. Ollama itself stays bound to `127.0.0.1`.
 ## One-time setup
 1. Create a free ngrok account: https://dashboard.ngrok.com/signup
 2. Copy your authtoken: https://dashboard.ngrok.com/get-started/your-authtoken
-3. Reserve a free static domain: https://dashboard.ngrok.com/domains
+3. Look up your free static domain: https://dashboard.ngrok.com/domains
+   Every account is given one automatically, shown as a **dev domain** in the format
+   `something-random.ngrok-free.dev`. There is nothing to create -- don't click
+   New Domain, since choosing your own name is a paid feature. The auto-assigned
+   name is random but permanent, which is all this setup needs.
 4. Invent a bridge token -- a long random string:
    `python -c "import secrets; print(secrets.token_urlsafe(32))"`
 5. Open `ollama_bridge.ipynb` in Colab and add both as Colab secrets (key icon in the
@@ -29,7 +33,7 @@ but forces you to reconfigure every client on each restart.
 1. Open `ollama_bridge.ipynb` in Colab.
 2. Runtime > Change runtime type > T4 GPU.
 3. Runtime > Run all.
-4. Wait for "Bridge is live: https://your-domain.ngrok-free.app" in the tunnel cell's output.
+4. Wait for "Bridge is live: https://your-dev-domain.ngrok-free.dev" in the tunnel cell's output.
 5. Your clients are already pointed at that URL with the token -- see
    `../clients/continue-config.json` (VS Code) or `../clients/mobile-setup.md` (phone apps).
    Because the domain and token are both static, you only set them once, ever.
@@ -42,7 +46,7 @@ those assertions fail the notebook stops there rather than exposing the port.
 - Never commit your real `BRIDGE_TOKEN`. `clients/continue-config.json` ships a
   placeholder; fill it in only in your local `~/.continue/config.json`.
 - The token is the only thing standing between a scanned or leaked URL and your GPU
-  quota. Reserved ngrok domains are permanent, which is exactly why the token matters
+  quota. The ngrok dev domain is permanent, which is exactly why the token matters
   more here than it would with a rotating quick tunnel.
 - To rotate: change the `BRIDGE_TOKEN` Colab secret, re-run the notebook, update clients.
 
