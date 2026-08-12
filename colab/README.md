@@ -1,3 +1,19 @@
+> ## ⚠️ Not the recommended setup
+>
+> Colab's [FAQ](https://research.google.com/colaboratory/faq.html) disallows
+> *"bypassing the notebook UI to interact primarily via a web UI"* on the free tier, and
+> *"connecting to remote proxies"* for all users. Serving inference to a phone through a
+> tunnel is exactly that pattern, and enforcement costs you Colab access on your main
+> Google account.
+>
+> **Use [`../mac/`](../mac/) instead** — Ollama on your own Mac, reachable over Tailscale.
+> No terms-of-service conflict, no public exposure, no session limits, also free.
+>
+> This directory is kept only for reference, and for the case where you have a paid Colab
+> plan with a positive compute-unit balance (which lifts the free-tier restrictions but
+> *not* the remote-proxy one). Using Colab interactively in the notebook is of course fine
+> — it's the tunnelled serving that isn't.
+
 # Colab GPU Bridge
 
 Runs Ollama on Colab's free T4 GPU and exposes it over a static ngrok HTTPS domain, so

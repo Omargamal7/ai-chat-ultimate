@@ -1,11 +1,10 @@
 {
   "models": [
     {
-      "title": "Colab Bridge",
-      "provider": "openai",
+      "title": "Mac (Tailscale)",
+      "provider": "ollama",
       "model": "llama3.1:8b",
-      "apiBase": "https://your-dev-domain.ngrok-free.dev/v1",
-      "apiKey": "PASTE_YOUR_BRIDGE_TOKEN_HERE"
+      "apiBase": "https://your-mac.tailXXXX.ts.net"
     }
   ]
 }
