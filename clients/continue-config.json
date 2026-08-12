@@ -1,0 +1,16 @@
+{
+  "models": [
+    {
+      "title": "Colab Bridge (Ollama)",
+      "provider": "ollama",
+      "model": "llama3.1:8b",
+      "apiBase": "https://your-reserved-domain.ngrok-free.app"
+    }
+  ],
+  "tabAutocompleteModel": {
+    "title": "Colab Bridge (Ollama)",
+    "provider": "ollama",
+    "model": "llama3.1:8b",
+    "apiBase": "https://your-reserved-domain.ngrok-free.app"
+  }
+}
