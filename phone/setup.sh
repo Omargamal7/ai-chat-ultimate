@@ -23,6 +23,16 @@ arch="$(uname -m)"
 [[ "$arch" == "aarch64" || "$arch" == "arm64" ]] \
   || warn "Expected aarch64, found ${arch}. Continuing, but this script targets ARM64 Android."
 
+# chroot changes the filesystem root but not the environment, so a TMPDIR inherited from
+# the host shell (e.g. Termux's /data/data/com.termux/files/usr/tmp) can point at a path
+# that doesn't exist inside the chroot at all, which breaks mktemp for apt and installers.
+if [[ -n "${TMPDIR:-}" && ! -d "$TMPDIR" ]]; then
+  warn "TMPDIR=${TMPDIR} doesn't exist in this chroot (inherited from the host shell); using /tmp instead."
+  unset TMPDIR
+fi
+mkdir -p /tmp
+chmod 1777 /tmp 2>/dev/null || true
+
 # ---------------------------------------------------------------- memory sizing
 # What matters is MemAvailable, not MemTotal: Android keeps a large share of the 12GB for
 # the UI and background apps, and the chroot only sees what is genuinely free.

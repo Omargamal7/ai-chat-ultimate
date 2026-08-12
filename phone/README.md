@@ -29,6 +29,22 @@ Inside the chroot:
 It installs Ollama for arm64, picks a model that fits free RAM, and serves on loopback.
 Then point any Android chat client at `http://127.0.0.1:11434`.
 
+### If `apt` or the installer fails with a `mktemp` / temp-directory error
+
+`chroot` changes the filesystem root but not the environment, so a `TMPDIR` inherited
+from the host shell (e.g. Termux's `/data/data/com.termux/files/usr/tmp`) can point at a
+path that doesn't exist inside the chroot. `setup.sh` detects and clears this
+automatically, but if you hit it before that fix or from a different tool, run:
+
+```bash
+unset TMPDIR
+chmod 1777 /tmp
+```
+
+Signature-verification warnings from `apt update` (`Unable to mkstemp ... Permission
+denied`) are usually the same root cause and safe to ignore if apt still lists packages
+and falls back to a cached index.
+
 ```bash
 ./setup.sh --status   # RAM, server state, installed models
 ./setup.sh --bench    # real tokens/sec, including throttling
